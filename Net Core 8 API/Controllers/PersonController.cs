@@ -22,6 +22,9 @@ namespace Net_Core_8_API.Controllers
         }
 
         // GET: api/Person
+        /// <summary>
+        /// Update all the records
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
         {
@@ -29,6 +32,9 @@ namespace Net_Core_8_API.Controllers
         }
 
         // GET: api/Person/5
+        /// <summary>
+        /// Get a record
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
@@ -44,6 +50,9 @@ namespace Net_Core_8_API.Controllers
 
         // PUT: api/Person/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Update a record
+        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
@@ -73,8 +82,24 @@ namespace Net_Core_8_API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update all the records to that age
+        /// </summary>
+        [HttpPut]
+        public async Task<IActionResult> PutAllPersonAge(int age)
+        {
+            var persons = _context.Persons;
+            await persons.ForEachAsync(p => p.Age = age);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         // POST: api/Person
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Add a record
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<Person>> PostPerson(Person person)
         {
@@ -85,6 +110,9 @@ namespace Net_Core_8_API.Controllers
         }
 
         // DELETE: api/Person/5
+        /// <summary>
+        /// Delete a record
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePerson(int id)
         {
