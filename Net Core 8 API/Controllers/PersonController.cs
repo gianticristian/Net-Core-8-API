@@ -23,7 +23,7 @@ namespace Net_Core_8_API.Controllers
 
         // GET: api/Person
         /// <summary>
-        /// Update all the records
+        /// Get all the records
         /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
@@ -101,8 +101,14 @@ namespace Net_Core_8_API.Controllers
         /// Add a record
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(Person person)
+        public async Task<ActionResult<Person>> PostPerson(string name, int age)
         {
+            var person = new Person
+            {
+                Name = name,
+                Age = age
+            };
+
             _context.Persons.Add(person);
             await _context.SaveChangesAsync();
 
